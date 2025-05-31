@@ -22,6 +22,6 @@ public class StatDodge : Stat
 
     protected override void StatModified(int modifiedValue)
     {
-        throw new System.NotImplementedException();
+
     }
 }

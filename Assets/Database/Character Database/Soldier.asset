@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d847fe985610a4497af3576bb2aa70, type: 3}
   m_Name: Soldier
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: Soldier
   health:
     _baseValue: 10
     _baseMultiplier: 1

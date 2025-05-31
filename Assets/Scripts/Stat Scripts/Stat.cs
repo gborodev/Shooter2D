@@ -19,6 +19,16 @@ public abstract class Stat : MonoBehaviour, IStatInfo
     public int StatBaseValue => _statBase.BaseValue;
     public float StatBaseMultiplier => _statBase.BaseMultiplier;
 
+    public void AddStat(StatBase stat)
+    {
+        if (stat == null) return;
+
+        _statBase = stat;
+        StatModified(CalculateValue());
+
+        OnStatChanged?.Invoke();
+    }
+
     protected virtual void Awake() { }
     protected virtual void Start() { }
 

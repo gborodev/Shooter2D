@@ -6,20 +6,29 @@ public class StatManager : Singleton<StatManager>
 {
     private Dictionary<StatType, Stat> statDict = new Dictionary<StatType, Stat>();
 
-    [SerializeField] private CharacterDataSO _testData;
-
-    private void Start()
+    public override void Awake()
     {
+        base.Awake();
+
         Stat[] stats = GetComponentsInChildren<Stat>();
+        statDict = stats.ToDictionary(stat => stat.StatType, stat => stat);
+    }
 
-        foreach (Stat stat in stats)
+    public void ApplyCharacterData(CharacterDataSO characterData)
+    {
+        foreach (var stat in statDict.Values)
         {
+            StatBase baseStatData = characterData.GetStatBaseByType(stat.StatType);
 
-
-            statDict.Add(stat.StatType, stat);
+            if (baseStatData != null)
+            {
+                stat.AddStat(baseStatData);
+            }
+            else
+            {
+                Debug.LogWarning($"No base stat data found for {stat.StatType} in character data.");
+            }
         }
-
-        _testData.InitializeCharacterData(this);
     }
 
     public bool TryGetStat<T>(StatType type, out T stat) where T : Stat
